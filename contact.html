@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Dynamic Prophets - Sticker</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      background-color: black;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      position: absolute;
+      z-index: 15;
+      left: 41%;
+      list-style: none;
+    }
+
+    .nav-link {
+      margin-right: 1.5rem;
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #d4d4d4;
+    }
+
+    .cart {
+      display: flex;
+      align-items: center;
+    }
+
+    .cart-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s;
+      z-index: 10;
+    }
+
+    .cart-button:hover {
+      color: #d4d4d4;
+    }
+
+    .cart-img {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 3;
+    }
+
+    .flex {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+
+    .w-48 {
+      width: 19rem;
+      flex: 1 1 auto;
+      z-index: 7;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      object-cover: cover;
+    }
+
+    .bg-blue-500 {
+      background-color: #3b82f6;
+    }
+
+    .text-white {
+      color: #ffffff;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .py-2 {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .shop-text {
+      position: absolute;
+      top: 115%;
+      left: 20px;
+      transform: translateY(-50%);
+      color: #0071B7;
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 0 20px;
+      z-index: 2;
+    }
+
+    
+
+    .container {
+      display: flex;
+      padding: 20px;
+    }
+
+    .box {
+      width: 746px;
+      height: 658px;
+      background-color: #f0f0f0;
+      margin-right: 20px;
+    }
+
+    .box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .text-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      color: #0071B7;
+      font-size: 1.5rem;
+    }
+
+    .text-content p {
+      margin: 0;
+      padding-top: 10px;
+    }
+
+    .info-text, .blue-text {
+      font-size: 2rem;
+    }
+
+    .black-text {
+      color: black;
+    }
+
+    .blue-text {
+      color: #0071B7;
+      margin-top: 50px;
+    }
+
+    .rectangle-container {
+      display: flex;
+      gap: 10px;
+      margin-top: 80px;
+    }
+
+    .rectangle {
+      width: 26px;
+      height: 27px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-text {
+      position: absolute;
+      top: 20%;
+      left: 482px;
+      transform: translateY(-50%);
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .contact-details {
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      color: #ffffff;
+      font-size: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .invisible-box {
+      width: 446px;
+      height: 119px;
+      border: 1px solid #ffffff;
+      background-color: transparent;
+      margin-top: 10px;
+    }
+
+    .invisible-box input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    .invisible-box input::placeholder {
+      color: white;
+    
+    }
+
+    .new-box {
+      width: 949px;
+      height: 195px;
+      border: 1px solid #ffffff;
+      background-color: transparent;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .new-box textarea {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    .new-box textarea::placeholder {
+      color: white;
+    }
+    .invisible-box input:focus,.new-box textarea:focus {
+     outline: none;
+    } 
+
+    .send-button {
+      width: 446px;
+      height: 96px;
+      background-color: #0071B7;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      position: fixed;
+      bottom: -360px; /* Adjust the distance from the bottom */
+      left: 20%; /* Center horizontally */
+      transform: translateX(-106.5%);
+      ; /* Ensure it's above other content */
+    }
+
+    .send-button:hover {
+      background-color: #005482;
+    }
+
+    .flash-message {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 9999;
+      display: none;
+    }
+    .contact-details {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.footer {
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 50px;
+      width: 100%;
+      position: fixed;
+      bottom: -100px; /* Hide footer initially */
+      transition: bottom 0.3s; /* Smooth transition */
+    }
+    .footer a {
+      color: white;
+      margin: 0 270px;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .footer-links {
+      margin-left: auto; /* Move terms & conditions link to the right */
+    }
+    .send-message-container {
+  position: relative;
+}
+    .white-space-rectangle {
+  height: 200px;
+  background-color: rgb(0, 0, 0);
+  width: 100%;
+  position: absolute;
+  bottom: -220px; /* Adjust this value to position the rectangle as desired */
+  z-index: -1;
+
+}
+@media (min-width: 375px) and (max-width: 667px) {
+      .contact-details {
+        position: static;
+        transform: none;
+        top: auto;
+        left: auto;
+        margin: 20px;
+      }
+
+      .invisible-box, .new-box {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .send-button {
+        width: 100%;
+        bottom: 20px;
+        left: 0;
+        transform: none;
+        position: static;
+      }
+
+  
+  .footer-logo {
+    margin-bottom: 1rem;
+  }
+  .logo-img {
+    width: 100px;
+  }
+
+  .footer {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+      }
+
+      .footer a {
+        margin: 0;
+      }
+
+      .footer-links {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 1rem;
+      }
+
+      .nav-link {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+
+      .cart-button {
+        margin-top: 1rem;
+      }
+
+      .contact-text {
+        position: static;
+        margin: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="Logo" class="logo-img">
+      <span class="logo-text"></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="shop.html" class="nav-link">Shop</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+
+    <div class="cart">
+      <button class="cart-button">
+        <img src="cart.png" alt="Cart" class="cart-img">
+      </button>
+    </div>
+  </nav>
+
+  <div class="contact-text">Feel free to contact us!</div>
+  <div class="contact-details">
+    <div style="display: flex; gap: 53px;">
+      <div>
+        <div>Your name</div>
+        <div class="invisible-box">
+          <input type="text" placeholder="Enter your name">
+        </div>
+      </div>
+      <div>
+        <div>Your Email</div>
+        <div class="invisible-box">
+          <input type="email" placeholder="Enter your email">
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>Your Message</div>
+      <div class="new-box">
+        <textarea placeholder="Enter your message"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="contact-details">
+    <!-- Your existing contact details -->
+
+    <!-- Button to send message -->
+    <button class="send-button" onclick="sendMessage()">SEND MESSAGE</button>
+  </div>
+  <div class="white-space-rectangle"></div>
+  <div class="white-space-rectangle"></div>
+  <!-- Flash message -->
+  <div id="flashMessage" class="flash-message"></div>
+
+  <footer id="footer" class="footer">
+    <div class="footer-logo">
+      <img src="logo.png" alt="Footer Logo">
+    </div>
+    <div class="footer-links">
+        <a href="#" style="margin-right: 400px;">Privacy & Policy</a>
+        <a href="#" style="margin-right: 80px;">Terms & Conditions</a>
+    </div>
+  </footer>
+
+  <script>
+    
+     function sendMessage() {
+      // Show flash message
+      var flashMessage = document.getElementById('flashMessage');
+      flashMessage.innerText = 'YOUR MESSAGE HAS BEEN SENT';
+      flashMessage.style.display = 'block';
+
+      // Hide flash message after 3 seconds
+      setTimeout(function() {
+        flashMessage.style.display = 'none';
+      }, 3000);
+    }
+
+    function sendMessage() {
+    // Get input field values
+    var nameInput = document.querySelector('input[type="text"]').value.trim();
+    var emailInput = document.querySelector('input[type="email"]').value.trim();
+    var messageTextarea = document.querySelector('textarea').value.trim();
+
+    // Check if any of the fields are empty
+    if (nameInput === '' || emailInput === '' || messageTextarea === '') {
+      // Show flash message indicating that all fields must be filled and set color to red
+      displayFlashMessage('Please fill out all fields before sending.', 'red');
+    } else {
+      // Show flash message indicating that the message has been sent and set color to green
+      displayFlashMessage('YOUR MESSAGE HAS BEEN SENT', '#4CAF50');
+
+      // Clear input fields
+      document.querySelector('input[type="text"]').value = '';
+      document.querySelector('input[type="email"]').value = '';
+      document.querySelector('textarea').value = '';
+    }
+  }
+
+  function displayFlashMessage(message, color) {
+    // Show flash message with specified color
+    var flashMessage = document.getElementById('flashMessage');
+    flashMessage.innerText = message;
+    flashMessage.style.backgroundColor = color; // Set background color
+    flashMessage.style.display = 'block';
+
+    // Hide flash message after 3 seconds
+    setTimeout(function() {
+      flashMessage.style.display = 'none';
+    }, 3000);
+  }
+
+  
+  window.addEventListener('scroll', function() {
+      var footer = document.getElementById('footer');
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        footer.style.bottom = '0'; // Show footer
+      } else {
+        footer.style.bottom = '-100px'; // Hide footer
+      }
+    });
+
+  </script>
+</body>
+</html>
